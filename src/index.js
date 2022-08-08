@@ -3,12 +3,33 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import "antd/dist/antd.css";
+import { createStore } from 'redux'
+//import { configureStore } from '@reduxjs/toolkit'
+import { Provider } from 'react-redux'
 
+const initst = 1;
+
+const reducer = (state = initst, actions) => {
+  switch (actions.type) {
+    case 'Show':
+      return (
+        state + 1
+      )
+    default:
+      return (
+        state
+      )
+  }
+}
+const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+//const store = configureStore({reducer},window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
